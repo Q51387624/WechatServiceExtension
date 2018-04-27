@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ChromeExtension\**" />
+    <Compile Remove="extension\**" />
+    <Compile Remove="wwwroot\service\**" />
+    <Content Remove="ChromeExtension\**" />
+    <Content Remove="extension\**" />
+    <Content Remove="wwwroot\service\**" />
+    <EmbeddedResource Remove="ChromeExtension\**" />
+    <EmbeddedResource Remove="extension\**" />
+    <EmbeddedResource Remove="wwwroot\service\**" />
+    <None Remove="ChromeExtension\**" />
+    <None Remove="extension\**" />
+    <None Remove="wwwroot\service\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetCore.NPOI" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WeiXinEx.Application\WeiXinEx.Application.csproj" />
+    <ProjectReference Include="..\WeiXinEx.Entities\WeiXinEx.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\img\browser.psd" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\js\site.min.js" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
+</Project>

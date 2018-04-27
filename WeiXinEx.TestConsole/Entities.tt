@@ -1,0 +1,6 @@
+﻿<#@ include file="Entities.Core.ttinclude" #>
+<#
+	string Namespace = "";
+    string ConnectionString ="";
+#>
+<#@ include file="Entities.Generator.ttinclude" #>

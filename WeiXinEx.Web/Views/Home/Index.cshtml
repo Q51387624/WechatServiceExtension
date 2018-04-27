@@ -1,0 +1,166 @@
+﻿@model WeiXinEx.Entities.HomeViewModel
+<div class="row">
+    <div class="col-md-2">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>当前在线客服</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.OnlineEmployees</h1>
+                <div class="stat-percent font-bold text-success">
+                    @Model.PerEmployess <i class="fa fa-bolt"></i>
+                </div>
+                <small>全部：@Model.TotalEmployees</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>当前在线公众号 @ViewBag.IsAuthenticated</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.OnlineBusiness</h1>
+                <div class="stat-percent font-bold text-info">
+                    @Model.PerBusiness <i class="fa fa-level-up"></i>
+                </div>
+                <small>全部：@Model.TotalBusiness</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-primary pull-right">天</span>
+                <h5>当日数据汇总</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1 class="no-margins">@Model.TodaySend</h1>
+                        <div class="font-bold text-navy">
+                            <small>回复消息</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="no-margins">@Model.TodaySessiong</h1>
+                        <div class="font-bold text-navy">
+                            <small>服务人数</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-primary pull-right">月</span>
+                <h5>当月数据汇总</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1 class="no-margins">@Model.MonthSend</h1>
+                        <div class="font-bold text-navy">
+                            <small>回复消息</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="no-margins">@Model.MonthSession</h1>
+                        <div class="font-bold text-navy">
+                            <small>服务人数</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="ibox">
+            <div class="ibox-title">近30天监控数据统计</div>
+            <div class="ibox-content">
+                <div id="mainChart" style="width:100%;height:500px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/plugins/echarts/echarts.min.js"></script>
+    <script src="~/js/plugins/echarts/macarons.js"></script>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('mainChart'), "macarons");
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                formatter: function (params, ticket, callback) {
+                    var html = ['<div style="text-align:left;">'];
+                    for (var i = 0; i < params.length; i++) { 
+                        var item = params[i];
+                        if (i == 0) {
+                            html.push(item.axisValueLabel);
+                            html.push("<br/>");
+                        }
+                        html.push(item["seriesName"] + ' : <b style="color:yellow;font-size:14px;">' + item["value"] + '</b>')
+                        html.push("<br/>");
+                    }
+                    html[html.length - 1] = "</div>";
+                    return html.join('');
+                }
+            },
+            legend: {},
+            toolbox: {
+                show: true,
+                feature: {
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            calculable: true,
+            xAxis: [{ type: 'category', axisPointer: { type: 'shadow' } }],
+            yAxis: [
+                { type: 'value', axisLabel: { formatter: '{value}' }, splitArea: { show: true } },
+                { type: 'value', axisLabel: { formatter: '{value} 人' }, splitArea: { show: true } }
+            ],
+            series: []
+        };
+        $(function () {
+            LoadChart();
+        });
+        function LoadChart() {
+            myChart.showLoading({ text: '正在加载图表...', effect: 'bubble', textStyle: { fontSize: 20 } });
+            $.ajax({
+                url: "/Home/JsonMonthStatistic",
+                method: "POST",
+                success: function (data) {
+                    myChart.hideLoading();
+                    option.xAxis[0].data = data.xAxisData;
+                    option.series = [];
+                    option.series.push(createLine(data.seriesData[0], 'line',0));
+                    option.series.push(createLine(data.seriesData[1], 'line',0));
+                    option.series.push(createLine(data.seriesData[2], 'bar', 1));
+                    //option.series.push(createLine(data.seriesData[5], 'bar', 1));
+                    //option.series.push(createLine(data.seriesData[6], 'bar', 1));
+                    myChart.clear();
+                    console.log(option);
+                    myChart.setOption(option);
+
+                }, error: function () {
+                    myChart.hideLoading();
+                }
+            });
+        }
+        function createLine(seriesData,type,index) {
+            return {
+                name: seriesData.name,
+                data: seriesData.data,
+                type: type,
+                yAxisIndex:index||0
+            };
+        }
+    </script>
+}

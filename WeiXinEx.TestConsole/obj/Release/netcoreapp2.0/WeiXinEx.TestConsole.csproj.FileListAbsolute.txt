@@ -1,0 +1,4 @@
+C:\Users\FanGen\Desktop\微信开发\WeiXinEx.TestConsole\obj\Release\netcoreapp2.0\WeiXinEx.TestConsole.csprojResolveAssemblyReference.cache
+C:\Users\FanGen\Desktop\微信开发\WeiXinEx.TestConsole\obj\Release\netcoreapp2.0\WeiXinEx.TestConsole.csproj.CoreCompileInputs.cache
+C:\Users\FanGen\Desktop\微信开发\WeiXinEx.TestConsole\obj\Release\netcoreapp2.0\WeiXinEx.TestConsole.AssemblyInfoInputs.cache
+C:\Users\FanGen\Desktop\微信开发\WeiXinEx.TestConsole\obj\Release\netcoreapp2.0\WeiXinEx.TestConsole.AssemblyInfo.cs

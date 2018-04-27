@@ -1,0 +1,23 @@
+﻿<#
+	T4Builder builder = new T4Builder(ConnectionString);
+	builder.Initialization();
+	if(builder.Tables.Count==0){
+		return "//无可用表";
+    }#>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using PetaPoco;
+using MongoDB.Bson.Serialization.Attributes;
+using NetRube.Data;
+
+namespace <#=Namespace #>{
+
+
+<# foreach(var table in builder.Tables){ #>
+//<#= table.TableName #>
+<#}#>
+
+}
