@@ -35,23 +35,24 @@ namespace WeiXinEx.Web.Controllers
             var sheet = (HSSFSheet)workboox.CreateSheet("客服统计"); //创建工作表
             sheet.CreateFreezePane(0, 1); //冻结列头行
             var header = (HSSFRow)sheet.CreateRow(0); //创建列头行
-
-            header.CreateCell(0).SetCellValue("客服名");
-            header.CreateCell(1).SetCellValue("服务人数");
-            header.CreateCell(2).SetCellValue("回复消息");
-            header.CreateCell(3).SetCellValue("收到消息");
-            //header.CreateCell(4).SetCellValue("在线时长");
+            header.CreateCell(0).SetCellValue("公众号");
+            header.CreateCell(1).SetCellValue("客服名");
+            header.CreateCell(2).SetCellValue("服务人数");
+            header.CreateCell(3).SetCellValue("回复消息");
+            header.CreateCell(4).SetCellValue("收到消息");
+            //header.CreateCell(5).SetCellValue("在线时长");
             var index = 1;
             var employees = statistic.GroupBy(p => p.UId);
             foreach (var employee in employees)
             {
 
                 var row = sheet.CreateRow(index++);
-                row.CreateCell(0).SetCellValue(employee.FirstOrDefault().EmployeeName);
-                row.CreateCell(1).SetCellValue(employee.Sum(p => p.SessionCount));
-                row.CreateCell(2).SetCellValue(employee.Sum(p => p.MessageSend));
-                row.CreateCell(3).SetCellValue(employee.Sum(p => p.MessageRecv));
-                //row.CreateCell(4).SetCellValue(employee.Sum(p => p.OnlineTime));
+                row.CreateCell(0).SetCellValue(employee.FirstOrDefault().BusinessName);
+                row.CreateCell(1).SetCellValue(employee.FirstOrDefault().EmployeeName);
+                row.CreateCell(2).SetCellValue(employee.Sum(p => p.SessionCount));
+                row.CreateCell(3).SetCellValue(employee.Sum(p => p.MessageSend));
+                row.CreateCell(4).SetCellValue(employee.Sum(p => p.MessageRecv));
+                //row.CreateCell(5).SetCellValue(employee.Sum(p => p.OnlineTime));
             }
             var filename = string.Format("{0}-{1}客服数据统计.xls", query.Begin.Value.ToString("MM月dd日"), query.End.Value.ToString("MM月dd日"));
             var stream = new MemoryStream();
