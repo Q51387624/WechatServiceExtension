@@ -52,8 +52,14 @@ var monitorStatistic = {
                 statistics: data,
                 sessions: sessions
             };
-            console.log(data);
             server("statistic", data);
+
+            //发送聊天记录
+            var messages = client.messages.distinct();
+            messages.forEach(function (item) {
+                monitorMessages.sendData(item, 0, 20);
+            });
+            
         });
     }
 };

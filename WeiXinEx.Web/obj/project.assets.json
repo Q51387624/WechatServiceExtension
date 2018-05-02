@@ -13485,12 +13485,15 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Web\\WeiXinEx.Web.csproj",
+      "projectUniqueName": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Web\\WeiXinEx.Web.csproj",
       "projectName": "WeiXinEx.Web",
-      "projectPath": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Web\\WeiXinEx.Web.csproj",
+      "projectPath": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Web\\WeiXinEx.Web.csproj",
       "packagesPath": "C:\\Users\\FanGen\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Web\\obj\\",
+      "outputPath": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13504,17 +13507,16 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://nuget.himall.kuaidiantong.cn/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\WeiXinEx.Application.csproj": {
-              "projectPath": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\WeiXinEx.Application.csproj"
+            "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\WeiXinEx.Application.csproj": {
+              "projectPath": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\WeiXinEx.Application.csproj"
             },
-            "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj": {
-              "projectPath": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj"
+            "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj": {
+              "projectPath": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj"
             }
           }
         }
@@ -13528,22 +13530,22 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "DotNetCore.NPOI": {
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
-            "version": "[1.0.2, )"
-          },
-          "Microsoft.AspNetCore.All": {
-            "target": "Package",
-            "version": "[2.0.6, )"
+            "version": "2.0.3"
           },
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "[2.0.0, )",
+            "version": "2.0.0",
             "autoReferenced": true
           },
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+          "Microsoft.AspNetCore.All": {
             "target": "Package",
-            "version": "[2.0.3, )"
+            "version": "2.0.6"
+          },
+          "DotNetCore.NPOI": {
+            "target": "Package",
+            "version": "1.0.2"
           }
         },
         "imports": [

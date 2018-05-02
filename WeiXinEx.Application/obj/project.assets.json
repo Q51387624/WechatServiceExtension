@@ -2178,12 +2178,15 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\WeiXinEx.Application.csproj",
+      "projectUniqueName": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\WeiXinEx.Application.csproj",
       "projectName": "WeiXinEx.Application",
-      "projectPath": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\WeiXinEx.Application.csproj",
+      "projectPath": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\WeiXinEx.Application.csproj",
       "packagesPath": "C:\\Users\\FanGen\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\obj\\",
+      "outputPath": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2197,14 +2200,13 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://nuget.himall.kuaidiantong.cn/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj": {
-              "projectPath": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj"
+            "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj": {
+              "projectPath": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj"
             }
           }
         }
@@ -2221,7 +2223,7 @@
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.0, )",
+            "version": "2.0.0",
             "autoReferenced": true
           }
         },

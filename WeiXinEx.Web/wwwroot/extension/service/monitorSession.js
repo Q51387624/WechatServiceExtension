@@ -77,6 +77,7 @@ var monitorSession = {
     },
     init: function ()
     {
+        if (client.settings.enable_session == false) return;//禁用接入模块
         //监视器开关
         var box = '<div class="state" style="top:-100px;top:-50px">\
                    <input class="tgl tgl-skewed" id="chkMonitor" type="checkbox" />\

@@ -2220,12 +2220,15 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj",
+      "projectUniqueName": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj",
       "projectName": "WeiXinEx.Entities",
-      "projectPath": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj",
+      "projectPath": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\WeiXinEx.Entities.csproj",
       "packagesPath": "C:\\Users\\FanGen\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\obj\\",
+      "outputPath": "C:\\GitHub\\WechatServiceExtension\\WeiXinEx.Entities\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2239,7 +2242,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://nuget.himall.kuaidiantong.cn/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2256,19 +2258,19 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "Microsoft.NETCore.App": {
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "[2.0.0, )",
-            "autoReferenced": true
-          },
           "MySql.Data": {
             "target": "Package",
-            "version": "[6.10.6, )"
+            "version": "6.10.6"
           },
           "T4": {
             "target": "Package",
-            "version": "[2.0.1, )"
+            "version": "2.0.1"
+          },
+          "Microsoft.NETCore.App": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "2.0.0",
+            "autoReferenced": true
           }
         },
         "imports": [
