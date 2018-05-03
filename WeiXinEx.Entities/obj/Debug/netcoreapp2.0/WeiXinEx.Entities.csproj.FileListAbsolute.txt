@@ -28,7 +28,6 @@ H:\微信开发\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXinEx.Entities.pdb
 D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\bin\Debug\netcoreapp2.0\WeiXinEx.Entities.deps.json
 D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\bin\Debug\netcoreapp2.0\WeiXinEx.Entities.dll
 D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\bin\Debug\netcoreapp2.0\WeiXinEx.Entities.pdb
-D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXinEx.Entities.csprojResolveAssemblyReference.cache
 D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXinEx.Entities.csproj.CoreCompileInputs.cache
 D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXinEx.Entities.AssemblyInfoInputs.cache
 D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXinEx.Entities.AssemblyInfo.cs

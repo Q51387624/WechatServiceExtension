@@ -18,11 +18,7 @@ var filter = {
                 var id = $(".card_selected").data("reactid");
                 var index = id.indexOf("$") + 1;
                 var useruin = id.substring(index);
-                var timer = setTimeout(() => {
-                    monitorMessages.sendData(useruin, 0, 10);
-                    clearTimeout(timer);
-                }, 1000);
-
+                client.messages.push(useruin);
             }
         });
     },
@@ -35,5 +31,4 @@ var filter = {
         return null;
     }
 };
-
 builder.register(filter.init, 20);

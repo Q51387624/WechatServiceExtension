@@ -118,6 +118,7 @@ namespace WeiXinEx.Web.Controllers
                 settings = new
                 {
                     monitorInterval = setting.MonitorInterval,
+                    enable_session= setting.EnableSession,
                     setting.MonitorStatisticInterval,
                     monitorStatisticRange = 30,
                     auto_reply = setting.AutoReply,
@@ -135,7 +136,7 @@ namespace WeiXinEx.Web.Controllers
         public object Online(WXOnline online)
         {
             CommonApplication.SaveBusiness(online.Bizuin, online.BizNickname);
-            CommonApplication.SaveEmployee(online.Kfuin, online.Kfwx, online.KfNickname);
+            CommonApplication.SaveEmployee(online.Bizuin, online.Kfuin, online.Kfwx, online.KfNickname);
             return new { success = true };
         }
 

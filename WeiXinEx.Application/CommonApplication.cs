@@ -47,7 +47,7 @@ namespace WeiXinEx.Application
         #endregion
 
         #region Employee
-        public static void SaveEmployee(long uid, string wx, string nickname)
+        public static void SaveEmployee(long bid, long uid, string wx, string nickname)
         {
             if (uid <= 0) return;
             var model = DbFactory.Default.Get<Employee>(p => p.UId == uid).FirstOrDefault();
