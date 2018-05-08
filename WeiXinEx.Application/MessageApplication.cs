@@ -6,6 +6,7 @@ using System.Linq;
 using NetRube.Data;
 using NetRube;
 using WeiXinEx.Entities.DTO;
+using System.Threading.Tasks;
 
 namespace WeiXinEx.Application
 {
@@ -15,13 +16,32 @@ namespace WeiXinEx.Application
         {
             var first = messages.FirstOrDefault();
             if (first == null) return 0;
-            var exist = DbFactory.Default.Get<Message>(p => p.BizUId == first.BizUId && p.UserUId == first.UserUId)
-                .OrderByDescending(p => p.MessageId)
-                .Select(p=>p.MessageId)
+            var min = messages.Min(p => p.CreateTime);
+            var max = messages.Max(p => p.CreateTime);
+            var exist = DbFactory.Default.Get<Message>(p => p.BizUId == first.BizUId && p.UserUId == first.UserUId && p.CreateTime >= min && p.CreateTime <= max)
+                .Select(p => p.MessageId)
                 .ToList<int>();
             var list = messages.Where(p => !exist.Contains(p.MessageId)).ToList();
             DbFactory.Default.AddRange(list);
             return list.Count;
+        }
+
+        private static DateTime lastClear = DateTime.MinValue;
+
+        public static void Clear(int days)
+        {
+            if (lastClear.Date >= DateTime.Now.Date)
+                return;//当天已清理过
+            var date = DateTime.Now.Date.AddDays(-days);
+            DbFactory.Default.Del<Message>(p => p.CreateTime < date);
+            lastClear = DateTime.Now;//记录最后清理时间
+        }
+        public static void ClearAsync(int days)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                Clear(days);
+            });
         }
 
         public static PagedList<Message> GetMessages(MessageQuery query)
@@ -53,7 +73,7 @@ namespace WeiXinEx.Application
                 var bn = b?.Name ?? string.Empty;
                 if (string.IsNullOrEmpty(bn)) bn = b?.Nickname ?? string.Empty;
 
-                var e = employeeList.FirstOrDefault(p => p.UId == item.EmployeeUId);
+                var e = employeeList.FirstOrDefault(p => p.BId == item.BizUId && p.UId == item.EmployeeUId);
                 var en = e?.Name ?? string.Empty;
                 if (string.IsNullOrEmpty(en)) en = e?.Nickname ?? string.Empty;
 
@@ -82,25 +102,27 @@ namespace WeiXinEx.Application
         
         private static GetBuilder<Message> Builder(MessageQuery query) {
             var db = DbFactory.Default.Get<Message>();
-            if (!string.IsNullOrEmpty(query.BusinessName)) {
-                var business = DbFactory.Default.Get<Business>(p => p.Name.Contains(query.BusinessName) || p.Nickname.Contains(query.BusinessName)).Select(p => p.BId).ToList<long>();
-                db.Where(p => p.BizUId.ExIn(business));
-            }
-            if (!string.IsNullOrEmpty(query.EmployeeName)) {
-                var employee = DbFactory.Default.Get<Employee>(p => p.Name.Contains(query.EmployeeName) || p.Nickname.Contains(query.EmployeeName)).Select(p => p.UId).ToList<long>();
-                db.Where(p => p.EmployeeUId.ExIn(employee));
-            }
+
+            if (query.Begin.HasValue)
+                db.Where(p => p.CreateTime >= query.Begin.Value);
+
+            if (query.End.HasValue)
+                db.Where(p => p.CreateTime < query.End.Value);
+
             if (!string.IsNullOrEmpty(query.UserName))
             {
                 var users = DbFactory.Default.Get<User>(p => p.Name.Contains(query.UserName) || p.Nickname.Contains(query.UserName)).Select(p => p.UId).ToList<long>();
                 db.Where(p => p.UserUId.ExIn(users));
             }
-
-            if (query.Begin.HasValue) 
-                db.Where(p => p.CreateTime >= query.Begin.Value);
-            if (query.End.HasValue)
-                db.Where(p => p.CreateTime < query.End.Value);
-
+            if (!string.IsNullOrEmpty(query.EmployeeName))
+            {
+                var employee = DbFactory.Default.Get<Employee>(p => p.Name.Contains(query.EmployeeName) || p.Nickname.Contains(query.EmployeeName)).Select(p => p.UId).ToList<long>();
+                db.Where(p => p.EmployeeUId.ExIn(employee));
+            }
+            if (!string.IsNullOrEmpty(query.BusinessName)) {
+                var business = DbFactory.Default.Get<Business>(p => p.Name.Contains(query.BusinessName) || p.Nickname.Contains(query.BusinessName)).Select(p => p.BId).ToList<long>();
+                db.Where(p => p.BizUId.ExIn(business));
+            }
             return db;
         }
     }

@@ -76,26 +76,26 @@ namespace WeiXinEx.Web.Controllers
             };
             StatisticApplication.Save(list1, session);
 
-            var createds = sessions.CreatedUsers.Select(item => new UserSession
-            {
-                Bizuin = bizuin,
-                Useruin = item.Useruin,
-                Time = ToDateTime(item.Time),
-                Delay = item.Delay,
-                IsNew = true,
-                Completed = false,
-            }).ToList();
+            //var createds = sessions.CreatedUsers.Select(item => new UserSession
+            //{
+            //    Bizuin = bizuin,
+            //    Useruin = item.Useruin,
+            //    Time = ToDateTime(item.Time),
+            //    Delay = item.Delay,
+            //    IsNew = true,
+            //    Completed = false,
+            //}).ToList();
 
-            var success = sessions.SuccessUsers.Select(item => new UserSession
-            {
-                Bizuin = bizuin,
-                Useruin = item.Useruin,
-                Time = ToDateTime(item.Time),
-                Delay = item.Delay,
-                IsNew = true,
-                Completed = true,
-            }).ToList();
-            StatisticApplication.SaveSessions(bizuin, createds, success);
+            //var success = sessions.SuccessUsers.Select(item => new UserSession
+            //{
+            //    Bizuin = bizuin,
+            //    Useruin = item.Useruin,
+            //    Time = ToDateTime(item.Time),
+            //    Delay = item.Delay,
+            //    IsNew = true,
+            //    Completed = true,
+            //}).ToList();
+            //StatisticApplication.SaveSessions(bizuin, createds, success);
 
             return new { success = true };
         }
@@ -143,11 +143,11 @@ namespace WeiXinEx.Web.Controllers
         [HttpGet("modules")]
         public object Modules(long id)
         {
-            var employee = CommonApplication.GetEmployee(id);
-            if (employee == null || !employee.Enable)
-                return File("/extension/uauthorized.js", "application/javascript;charset=utf-8");
-            else
-                return File("/extension/modules.min.js", "application/javascript;charset=utf-8");
+            //var employee = CommonApplication.GetEmployee(id);
+            //if (employee == null || !employee.Enable)
+            //    return File("/extension/uauthorized.js", "application/javascript;charset=utf-8");
+            //else
+            return File("/extension/modules.min.js", "application/javascript;charset=utf-8");
         }
         private DateTime ToDateTime(long time)
         {

@@ -1,13 +1,14 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "a20c653994b1a283c7aac55cadc571a7fd59d4f8"
+    "signature": "0a44f88c12787f66928705413edbe915aedc8808"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "WeiXinEx.Entities/1.0.0": {
         "dependencies": {
+          "MSTest.TestFramework": "1.2.1",
           "MySql.Data": "6.10.6",
           "T4": "2.0.1"
         },
@@ -16,6 +17,12 @@
         }
       },
       "Microsoft.NETCore.Targets/1.0.1": {},
+      "MSTest.TestFramework/1.2.1": {
+        "runtime": {
+          "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {},
+          "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {}
+        }
+      },
       "MySql.Data/6.10.6": {
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.4.0",
@@ -206,6 +213,13 @@
       "sha512": "sha512-rkn+fKobF/cbWfnnfBOQHKVKIOpxMZBvlSHkqDWgBpwGDcLRduvs3D9OLGeV6GWGvVwNlVi2CBbTjuPmtHvyNw==",
       "path": "microsoft.netcore.targets/1.0.1",
       "hashPath": "microsoft.netcore.targets.1.0.1.nupkg.sha512"
+    },
+    "MSTest.TestFramework/1.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SKufOqwQRAQUTWyZTx0bIayHhDzwDaK8te+dk6mKQKK213RR0Ch48/Gq6Dk9/EXOyvNAfDYlLFjlGz9L4TVEZQ==",
+      "path": "mstest.testframework/1.2.1",
+      "hashPath": "mstest.testframework.1.2.1.nupkg.sha512"
     },
     "MySql.Data/6.10.6": {
       "type": "package",

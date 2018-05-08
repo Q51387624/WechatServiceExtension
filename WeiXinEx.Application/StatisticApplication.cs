@@ -105,7 +105,7 @@ namespace WeiXinEx.Application
                 var bn = b?.Name ?? string.Empty;
                 if (string.IsNullOrEmpty(bn)) bn = b?.Nickname ?? string.Empty;
 
-                var e = employeeList.FirstOrDefault(p => p.UId == item.UId);
+                var e = employeeList.FirstOrDefault(p => p.BId == item.BId && p.UId == item.UId);
                 var en = e?.Name ?? string.Empty;
                 if (string.IsNullOrEmpty(en)) en = e?.Nickname ?? string.Empty;
 

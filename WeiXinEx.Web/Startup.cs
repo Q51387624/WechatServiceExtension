@@ -17,7 +17,6 @@ namespace WeiXinEx.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
             //注册连接字符串
             var connection = Configuration.GetConnectionString("aliyun");
             NetRube.Data.DbFactory.SetConnectionString(connection);

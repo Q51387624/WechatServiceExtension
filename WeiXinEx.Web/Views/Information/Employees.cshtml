@@ -35,7 +35,7 @@
 <script type="text/javascript">
     var isManager = @User.Claims.Any(p => p.Type == ClaimTypes.Role && p.Value == "admin").ToString().ToLower();
     var columns = [
-        { field: 'uId', title: '客服编号', align: 'center', valign: 'middle' },
+        //{ field: 'uId', title: '客服编号', align: 'center', valign: 'middle' },
         { field: 'nickname', title: '微信客服名', align: 'center', valign: 'middle' },
         { field: 'name', title: '客服姓名', align: 'center', valign: 'middle' },
         {
@@ -43,24 +43,24 @@
                 return value.replace("T", " ");
             }
         },
-        {
-            field: 'enable', title: '授权', align: 'center', valign: 'middle', visible: isManager, width: 40, formatter(value, row, index) {
-                return '<input class="tgl tgl-flip" uid="' + row.uId + '" id="chkEnable_' + row.uId + '" type="checkbox" ' + (value ? "checked" : "") + ' />\
-                                   <label class="tgl-btn" data-tg-off="未授权" data-tg-on="已授权" for="chkEnable_'+ row.uId + '">\
-                                   </label>';
-            }
-        },
+        //{
+        //    field: 'enable', title: '授权', align: 'center', valign: 'middle', visible: isManager, width: 40, formatter(value, row, index) {
+        //        return '<input class="tgl tgl-flip" data-id="' + row.id + '" id="chkEnable_' + row.id + '" type="checkbox" ' + (value ? "checked" : "") + ' />\
+        //                           <label class="tgl-btn" data-tg-off="未授权" data-tg-on="已授权" for="chkEnable_'+ row.id + '">\
+        //                           </label>';
+        //    }
+        //},
         {
             field: 'content', title: '管理', align: 'left', valign: 'middle',
             formatter: function (value, row, index) {
-                return '<a tag="setName" uid="' + row.uId + '" name="' + row.name + '">设置别名</a>';
+                return '<a tag="setName" data-id="' + row.id + '" name="' + row.name + '">设置别名</a>';
             }
         }
     ];
     $(function () {
         $("#btnSearch").click(function () { refresh(); });
         $("#dataTable").on("click", "[tag=setName]", function () {
-            var id = $(this).attr("uid");
+            var id = $(this).data("id");
             var name = $(this).attr("name");
             layer.prompt({ title: '设置客服别名', value: name, formType: 3 }, function (input, index) {
                 layer.close(index);
@@ -70,7 +70,7 @@
             });
         });
         $("#dataTable").on("change", "[id^=chkEnable]", function () {
-            var id = $(this).attr("uid");
+            var id = $(this).data("id");
             var enable = $(this).is(":checked");
             $.get("@Url.Action("SetEmployeeEnable")", { id: id, enable: enable });
         });

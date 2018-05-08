@@ -43,7 +43,6 @@ $.extend(Date.prototype, { Date: function () { var date = this; date.setHours(0)
 var client = {
     settings: {
         host: "http://47.75.13.169",
-        //host: "http://localhost:57700",
         keywords: [],
         auto_reply: true,
         enable_session: true,

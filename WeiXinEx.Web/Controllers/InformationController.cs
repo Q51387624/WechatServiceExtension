@@ -29,7 +29,6 @@ namespace WeiXinEx.Web.Controllers
         }
         #endregion
 
-
         #region Employee
 
         public IActionResult Employees()

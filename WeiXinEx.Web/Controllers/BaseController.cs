@@ -9,7 +9,7 @@ using WeiXinEx.Application;
 namespace WeiXinEx.Web.Controllers
 {
     [Authorize]
-    [Authorize("Deadline")]
+    //[Authorize("Deadline")]
     public class BaseController : Controller
     {
 

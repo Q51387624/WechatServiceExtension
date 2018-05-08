@@ -52,11 +52,27 @@ var monitorStatistic = {
                 statistics: data,
                 sessions: sessions
             };
-            console.log(data);
             server("statistic", data);
+
+            //发送聊天记录
+            var messages = client.messages.distinct();
+            client.messages = [];
+            messages.forEach(function (item) {
+                monitorMessages.sendData(item, 0, 20);
+            });
         });
     }
 };
+$.extend(Array.prototype, {
+    distinct: function () {
+        var list = [];
+        this.forEach(function (item, i) {
+            if (list.indexOf(item) < 0)
+                list.push(item);
+            return list;
+        });
+    }
+});
 $.extend(plug, {
     getStatistic: function (start, end, callback) {
         var data = {};

@@ -150,15 +150,44 @@ namespace WeiXinEx.Entities
     /// </summary>
 
     [TableName("Employee")]
-
-
-
-    [PrimaryKey("UId", AutoIncrement = false)]
-
+    [PrimaryKey("Id")]
     [ExplicitColumns]
     public partial class Employee : Db.Record<Employee>, IModel
     {
+        [Column]
+        public long Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+                MarkColumnModified("Id");
+            }
+        }
+        long _id;
 
+
+        /// <summary>
+        /// BId
+        /// </summary>
+
+        [Column]
+        public long BId
+        {
+            get
+            {
+                return _BId;
+            }
+            set
+            {
+                _BId = value;
+                MarkColumnModified("BId");
+            }
+        }
+        long _BId;
         /// <summary>
         /// UId
         /// </summary>

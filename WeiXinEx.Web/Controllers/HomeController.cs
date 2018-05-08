@@ -20,6 +20,7 @@ namespace WeiXinEx.Web.Controllers
         public IActionResult Index()
         {
             var data = CommonApplication.GetHome();
+            MessageApplication.ClearAsync(60);
             return View(data);
         }
 

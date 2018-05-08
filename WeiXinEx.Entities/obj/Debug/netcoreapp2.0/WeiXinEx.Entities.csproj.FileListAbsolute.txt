@@ -33,3 +33,4 @@ D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXi
 D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXinEx.Entities.AssemblyInfo.cs
 D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXinEx.Entities.dll
 D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXinEx.Entities.pdb
+D:\GitHub\WechatServiceExtension\WeiXinEx.Entities\obj\Debug\netcoreapp2.0\WeiXinEx.Entities.csprojResolveAssemblyReference.cache

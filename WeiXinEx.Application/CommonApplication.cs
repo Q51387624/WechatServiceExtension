@@ -50,10 +50,11 @@ namespace WeiXinEx.Application
         public static void SaveEmployee(long bid, long uid, string wx, string nickname)
         {
             if (uid <= 0) return;
-            var model = DbFactory.Default.Get<Employee>(p => p.UId == uid).FirstOrDefault();
+            var model = DbFactory.Default.Get<Employee>(p => p.UId == uid && p.BId == bid).FirstOrDefault();
             if (model == null)
                 model = new Employee
                 {
+                    BId = bid,
                     UId = uid,
                     Name = string.Empty,
                     Nickname = nickname ?? string.Empty,
@@ -67,17 +68,17 @@ namespace WeiXinEx.Application
             if (model.IsNew) DbFactory.Default.Add(model);
             else DbFactory.Default.Update(model);
         }
-        public static Employee GetEmployee(long uid)
+        //public static Employee GetEmployee(long id)
+        //{
+        //   return  DbFactory.Default.Get<Employee>(p => p.Id == id).FirstOrDefault();
+        //}
+        public static void SetEmployeeName(long id, string name)
         {
-           return  DbFactory.Default.Get<Employee>(p => p.UId == uid).FirstOrDefault();
+            DbFactory.Default.Set<Employee>().Set(p => p.Name, name).Where(p => p.Id == id).Succeed();
         }
-        public static void SetEmployeeName(long uid, string name)
+        public static void SetEmployeeEnable(long id, bool enable)
         {
-            DbFactory.Default.Set<Employee>().Set(p => p.Name, name).Where(p => p.UId == uid).Succeed();
-        }
-        public static void SetEmployeeEnable(long uid, bool enable)
-        {
-            DbFactory.Default.Set<Employee>().Set(p => p.Enable, enable).Where(p => p.UId == uid).Succeed();
+            DbFactory.Default.Set<Employee>().Set(p => p.Enable, enable).Where(p => p.UId == id).Succeed();
         }
         public static PagedList<Employee> GetEmployee(EmployeeQuery query)
         {
@@ -139,28 +140,37 @@ namespace WeiXinEx.Application
             DbFactory.Default.Set<Employee>().Set(p => p.ModifyTime, now).Where(p => p.UId == kfuin).Succeed();
         }
 
-        private static Settings settings;
+        private static Settings _settings;
+        private static object lockObj = new object();
         public static Settings Settings
         {
-            get {
-                if (settings == null)
+            get
+            {
+                if (_settings == null)
                 {
-                    settings = new Settings();
-                    var data = DbFactory.Default.Get<Setting>().ToList().ToDictionary(k => k.Key, v => v.Value);
-                    var props = typeof(Settings).GetProperties();
-                    foreach (var prop in props)
+                    lock (lockObj)
                     {
-                        var attrs = prop.GetCustomAttributes(typeof(PetaPoco.IgnoreAttribute), false);
-                        if (attrs.Length > 0) continue;
-                        if (data.ContainsKey(prop.Name))
-                            prop.SetValue(Settings, Convert.ChangeType(data[prop.Name], prop.PropertyType));
+                        if (_settings == null)
+                        {
+                            var settings = new Settings();
+                            var data = DbFactory.Default.Get<Setting>().ToList().ToDictionary(k => k.Key, v => v.Value);
+                            var props = typeof(Settings).GetProperties();
+                            foreach (var prop in props)
+                            {
+                                var attrs = prop.GetCustomAttributes(typeof(PetaPoco.IgnoreAttribute), false);
+                                if (attrs.Length > 0) continue;
+                                if (data.ContainsKey(prop.Name))
+                                    prop.SetValue(settings, Convert.ChangeType(data[prop.Name], prop.PropertyType));
+                            }
+                            _settings = settings;
+                        }
                     }
                 }
-                return settings;
+                return _settings;
             }
         }
         public static void ClearSettings() {
-            settings = null;
+            _settings = null;
         }
 
         public static void SaveSettings(Settings settings)

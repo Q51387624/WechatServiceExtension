@@ -1,5 +1,7 @@
-﻿$(function () { toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "positionClass": "toast-top-center", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "7000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear", "showMethod": "fadeIn", "hideMethod": "fadeOut" }; }); $.extend(Array.prototype, {
-    select: function (fn) { var newlist = []; this.forEach(function (item, i) { newlist.push(fn(item, i)); }); return newlist; }, where: function (fn) {
+﻿$(function () { toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "positionClass": "toast-top-center", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "7000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear", "showMethod": "fadeIn", "hideMethod": "fadeOut" }; });
+$.extend(Array.prototype, {
+    select: function (fn) { var newlist = []; this.forEach(function (item, i) { newlist.push(fn(item, i)); }); return newlist; },
+    where: function (fn) {
         var newlist = []; this.forEach(function (item, i) {
             if (fn(item, i))
                 newlist.push(item);
@@ -24,6 +26,13 @@
             if (fn(item, i) > max)
                 max = fn(item, i);
         }); return max;
+    }, distinct: function () {
+        var list = [];
+        this.forEach(function (item, i) {
+            if (list.indexOf(item) < 0)
+                list.push(item);
+            return list;
+        });
     }
 }); function GetQueryString(name) { var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); var r = window.location.search.substr(1).match(reg); if (r !== null) return unescape(r[2]); return null; }
 $.extend(Date.prototype, { Date: function () { var date = this; date.setHours(0); date.setMinutes(0); date.setSeconds(0); date.setMilliseconds(0); return date; }, addDay(day) { var time = this.getTime(); time += day * 24 * 60 * 60 * 1000; return new Date(time); } }); function htmlDecode(str) {
@@ -34,9 +43,9 @@ $.extend(Date.prototype, { Date: function () { var date = this; date.setHours(0)
 var client = {
     settings: {
         host: "http://47.75.13.169",
-        //host: "http://localhost:57700",
         keywords: [],
         auto_reply: true,
+        enable_session: true,
     },
     current: {
         token: "",//登录凭证
@@ -47,6 +56,7 @@ var client = {
         bizNickname: ""//公众号名
     },
     sessions: [],
+    messages:[],
     pushSessions: function (sessions, callback) {
         var newSessions = [];
         sessions.forEach(function (item) {
@@ -90,7 +100,7 @@ var client = {
         server("script", { code: code }, function () {
             plug.init(function () {
                 server("online", { online: client.current, host: client.settings.host });
-                server("settings", {  }, function (result) {
+                server("settings", {}, function (result) {
                     if (result.success) {
                         $.extend(client.settings, result.settings);
                         plug.init();
@@ -99,6 +109,16 @@ var client = {
                 });
             });
         });
+
+        window.onbeforeunload = function (e) {
+            if (monitorStatistic) {
+                var today = new Date().Date();
+                var next = today.addDay(1);
+                var start = today.getTime() / 1000;
+                var end = next.getTime() / 1000;
+                monitorStatistic.sendData(start, end);
+            }
+        };
     }
 };
 //微信接口组件
